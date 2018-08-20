@@ -5,7 +5,7 @@ $action = getAction();
 if ($action == "proccessLogin") {
 
 	try {
-		
+
 		$username = @$_POST['username'];
 		$password = @$_POST['password'];
 		if (!$username) {
@@ -15,10 +15,23 @@ if ($action == "proccessLogin") {
 			throw new Exception("Password harus diisi.", 1);
 		}
 
-		$db = connectDb();
-		$sql = "SELECT * FROM admin WHERE username='$username'";
-		$user = _fetchOneFromSql($sql);
+		$status = false;
+		$loginOptions = [
+			'admin' => "SELECT * FROM admin WHERE username='%s'",
+		];
+		$user = false;
+		$level = false;
+		foreach ($loginOptions as $clevel => $query) {
 
+			$db = connectDb();
+			$sql = sprintf($query, $username);
+			$user = _fetchOneFromSql($sql);
+			if ($user) {
+				$level = $clevel;
+				break;
+			}
+			
+		}
 		if (!$user) {
 			throw new Exception("Username salah.", 1);
 		}
@@ -27,8 +40,8 @@ if ($action == "proccessLogin") {
 			throw new Exception("Password salah.", 1);
 		}
 
-		$_SESSION['admin']=$user;
-		$_SESSION['level']='admin';
+		$_SESSION[$level]=$user;
+		$_SESSION['level']=$level;
 
 		$message = "Berhasil Login.";
 		$status = true;
