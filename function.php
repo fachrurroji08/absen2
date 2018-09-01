@@ -4,7 +4,7 @@
 if (!function_exists('checkLogin')) {
 	function checkLogin()
 	{
-		return checkLoginAdmin() && checkLoginDosen() && checkLoginMahasiswa();
+		return checkLoginAdmin() || checkLoginDosen() || checkLoginMahasiswa();
 	}
 }
 if (!function_exists('checkLoginAdmin')) {
@@ -90,6 +90,24 @@ if (!function_exists('getLevel')) {
 
 // End Auth function
 
+//Profile function
+if (!function_exists('getProfile')) {
+	function getProfile()
+	{
+		$level = getLevel();
+		return @$_SESSION[$level];
+	}
+}
+
+if (!function_exists('getNama')) {
+	function getNama()
+	{
+		$level = getLevel();
+		$profile = getProfile();
+		return @$profile['nama_'.$level];
+	}
+}
+//End Profil function
 
 // Module function
 if (!function_exists('getModule')) {

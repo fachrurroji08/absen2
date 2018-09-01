@@ -18,6 +18,10 @@ if ($action == "proccessLogin") {
 		$status = false;
 		$loginOptions = [
 			'admin' => "SELECT * FROM admin WHERE username='%s'",
+      'mahasiswa' => "SELECT * FROM mahasiswa WHERE npm='%s'",
+      'dosen' => "SELECT * FROM dosen WHERE id_dosen='%s'",
+
+
 		];
 		$user = false;
 		$level = false;

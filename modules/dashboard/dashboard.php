@@ -1,5 +1,5 @@
 <?php
-
+redirectIfNotLogin();
 $level = getLevel();
 if ($level == 'admin' ) {
   redirect(moduleUrl('admin/dashboard'));

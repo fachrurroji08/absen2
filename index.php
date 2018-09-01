@@ -9,7 +9,6 @@ include "connection.php";
 
 
 $module = getModule();
-
 $moduleExists = isModuleExists($module);
 
 if ($moduleExists) {
