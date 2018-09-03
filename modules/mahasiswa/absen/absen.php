@@ -1,21 +1,15 @@
-<?php redirectIfNotMahasiswa(); ?>
-<?php 
-includeIfNotAction(MAHASISWA_DIR.'header.php', ['hapus', 'do_edit', 'do_input']);
+<?php redirectIfNotMahasiswa();
 
-$action = getAction();
-if ($action == 'index') {
-	include 'index.php';
-} elseif ($action == 'hapus') {
-	include 'hapus.php';
-} elseif ($action == 'edit') {
-	include 'edit.php';
-} elseif ($action == 'do_edit') {
-	include 'do_edit.php';
-} elseif ($action == 'input') {
-	include 'input.php';
-} elseif ($action == 'do_input') {
-	include 'do_input.php';
-}
+$except = ['startAbsen', 'get_dosen_location', 'simpan_absensi'];
+includeIfNotAction(MAHASISWA_DIR.'header.php', $except);
 
-includeIfNotAction(MAHASISWA_DIR.'footer.php', ['hapus', 'do_edit', 'do_input']);
-?>
+includeIfAction(MAHASISWA_DIR.'header_no_sidebar.php', ['startAbsen']);
+
+$actionList = array(
+	'index', 'startAbsen', 'get_dosen_location', 'simpan_absensi'
+);
+
+enableRoute($actionList);
+
+includeIfNotAction(MAHASISWA_DIR.'footer.php', $except);
+includeIfAction(MAHASISWA_DIR.'footer.php', ['startAbsen']);
