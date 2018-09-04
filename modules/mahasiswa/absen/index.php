@@ -78,6 +78,26 @@
                                         ;
 
                                         if ($onJadwal) {
+                                        	$query = sprintf(
+                                        		"SELECT * from absen where tanggal_absen='%s' and waktu_absen >= '%s' and waktu_absen <= '%s' and npm='%s' ",
+                                        		date('Y-m-d'),
+                                        		$mahasiswa['jam_mulai'], 
+                                        		$mahasiswa['jam_selesai'],
+                                        		$mahasiswa['npm']
+                                        	);
+                                        	$sudahAbsen = _fetchOneFromSql($query);	
+                                        } else {
+                                        	$sudahAbsen = false;
+                                        }
+
+                                        if ($onJadwal && $sudahAbsen) {
+                                            ?>
+                                            <div class="alert alert-success">
+                                            	Sudah Absen : <?=$sudahAbsen['status'];?><br/>
+                                            <?=sprintf("%s %s", $sudahAbsen['tanggal_absen'], $sudahAbsen['waktu_absen']);?>
+                                            </div>
+                                            <?php
+                                        } else if ($onJadwal) {
                                             ?>
                                             <a href="<?=moduleUrl('mahasiswa/absen', 'startAbsen', 'id_jadwal='.$mahasiswa['id_jadwal']);?>" class="btn btn-primary btn-xs" onclick="openWindow(event, this)">Absen</a>
                                             <?php

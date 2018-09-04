@@ -37,6 +37,13 @@ try {
         );
         if ($absen) throw new Exception("Anda sudah pernah melakukan absen dengan status kehadiran ".$absen['status']);
 
+        $jarak=haversineGreatCircleDistance($latMahasiswa, $lngMahasiswa, $pertemuan['latitude'], $pertemuan['longitude']);
+
+        if ($jarak > 15) {
+            throw new Exception("Jarak anda terlalu jauh", 1);
+            
+        }
+
         $status_hadir = 'hadir';
         $data = array(
             'id_pertemuan' => $id_pertemuan,
