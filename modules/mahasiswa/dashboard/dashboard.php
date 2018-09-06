@@ -5,10 +5,4 @@
 
 </section>
 
-<!-- Main content -->
-<section class="content container-fluid">
-<div>ajig</div>
-</section>
-<!-- /.content -->
-
 <?php include MAHASISWA_DIR.'footer.php'; ?>

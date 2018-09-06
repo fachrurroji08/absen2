@@ -12,10 +12,6 @@ MySQL - 10.1.31-MariaDB : Database - absen2
 /*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
 /*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
-CREATE DATABASE /*!32312 IF NOT EXISTS*/`absen2` /*!40100 DEFAULT CHARACTER SET latin1 */;
-
-USE `absen2`;
-
 /*Table structure for table `absen` */
 
 DROP TABLE IF EXISTS `absen`;
@@ -28,10 +24,15 @@ CREATE TABLE `absen` (
   `tanggal_absen` date DEFAULT NULL,
   `latitude` float(9,6) DEFAULT NULL,
   `longitude` float(9,6) DEFAULT NULL,
-  PRIMARY KEY (`id_absen`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+  `npm` varchar(20) DEFAULT NULL,
+  PRIMARY KEY (`id_absen`),
+  KEY `npm` (`npm`)
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8;
 
 /*Data for the table `absen` */
+
+insert  into `absen`(`id_absen`,`id_pertemuan`,`status`,`waktu_absen`,`tanggal_absen`,`latitude`,`longitude`,`npm`) values 
+(7,1,'hadir','14:02:36','2018-09-06',-7.350777,108.221817,'147006256');
 
 /*Table structure for table `admin` */
 
@@ -68,7 +69,7 @@ CREATE TABLE `dosen` (
 /*Data for the table `dosen` */
 
 insert  into `dosen`(`id_dosen`,`nama_dosen`,`nidn`,`gelar_depan`,`gelar_belakang`,`jenis_kelamin`,`password`) values 
-('123456789','kamvret','1233522726','Dr.','S.Pd.','L','$2y$10$WP9P75Vgs411ZFcPWUNOhe6m9q8En/1Lr760roA/AFD3e5XtOY/Re'),
+('123456789','Asep','1233522726','Dr.','S.Pd.','L','$2y$10$WP9P75Vgs411ZFcPWUNOhe6m9q8En/1Lr760roA/AFD3e5XtOY/Re'),
 ('20253035','fachrurroji','1122334455','','','L',NULL),
 ('23242526','kasep','1222222222','Dr.','S.T','P',NULL);
 
@@ -88,16 +89,13 @@ CREATE TABLE `jadwal` (
   PRIMARY KEY (`id_jadwal`),
   KEY `id_dosen` (`id_dosen`),
   KEY `id_matakuliah` (`id_matakuliah`),
-  KEY `id_ruangan` (`id_ruangan`),
-  CONSTRAINT `jadwal_ibfk_1` FOREIGN KEY (`id_dosen`) REFERENCES `dosen` (`id_dosen`),
-  CONSTRAINT `jadwal_ibfk_2` FOREIGN KEY (`id_matakuliah`) REFERENCES `matakuliah` (`id_matakuliah`),
-  CONSTRAINT `jadwal_ibfk_3` FOREIGN KEY (`id_ruangan`) REFERENCES `ruangan` (`id_ruangan`)
+  KEY `id_ruangan` (`id_ruangan`)
 ) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1;
 
 /*Data for the table `jadwal` */
 
 insert  into `jadwal`(`id_jadwal`,`id_dosen`,`id_matakuliah`,`id_ruangan`,`nama_kelas`,`jam_mulai`,`jam_selesai`,`id_hari`) values 
-(1,'123456789',1,885234,'a','07:00:00','09:00:00',1),
+(1,'123456789',1,885234,'a','13:00:00','15:00:00',4),
 (2,'123456789',1,885234,'b','09:01:00','11:00:00',1),
 (3,'20253035',3,885235,'a','13:00:00','15:00:00',1);
 
@@ -110,9 +108,8 @@ CREATE TABLE `krs` (
   `npm` varchar(20) NOT NULL,
   `id_jadwal` int(11) NOT NULL,
   PRIMARY KEY (`id_krs`),
-  KEY `id_jadwal` (`id_jadwal`),
-  CONSTRAINT `krs_ibfk_1` FOREIGN KEY (`id_jadwal`) REFERENCES `jadwal` (`id_jadwal`)
-) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=latin1;
+  KEY `id_jadwal` (`id_jadwal`)
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=latin1;
 
 /*Data for the table `krs` */
 
@@ -120,7 +117,8 @@ insert  into `krs`(`id_krs`,`npm`,`id_jadwal`) values
 (1,'147006256',1),
 (2,'137006107',1),
 (6,'147006256',3),
-(7,'137006107',3);
+(7,'137006107',3),
+(8,'147006256',2);
 
 /*Table structure for table `mahasiswa` */
 
@@ -138,7 +136,8 @@ CREATE TABLE `mahasiswa` (
 insert  into `mahasiswa`(`npm`,`nama_mahasiswa`,`password`) values 
 ('137006106','Haerani11','$2y$10$WP9P75Vgs411ZFcPWUNOhe6m9q8En/1Lr760roA/AFD3e5XtOY/Re'),
 ('137006107','Dede Gunawan','$2y$10$WP9P75Vgs411ZFcPWUNOhe6m9q8En/1Lr760roA/AFD3e5XtOY/Re'),
-('147006231','Riki Ahmad Fauzi','$2y$10$WP9P75Vgs411ZFcPWUNOhe6m9q8En/1Lr760roA/AFD3e5XtOY/Re');
+('147006231','Riki Ahmad Fauzi','$2y$10$WP9P75Vgs411ZFcPWUNOhe6m9q8En/1Lr760roA/AFD3e5XtOY/Re'),
+('147006256','Muhammad Fachrurroji','$2y$10$WP9P75Vgs411ZFcPWUNOhe6m9q8En/1Lr760roA/AFD3e5XtOY/Re');
 
 /*Table structure for table `matakuliah` */
 
@@ -174,10 +173,16 @@ CREATE TABLE `pertemuan` (
   `tanggal_pertemuan` date DEFAULT NULL,
   `jam_mulai` time DEFAULT NULL,
   `jam_selesai` time DEFAULT NULL,
-  PRIMARY KEY (`id_pertemuan`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+  PRIMARY KEY (`id_pertemuan`),
+  KEY `id_jadwal` (`id_jadwal`),
+  KEY `id_dosen` (`id_dosen`),
+  KEY `pertemuan_ibfk_2` (`id_ruangan`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
 
 /*Data for the table `pertemuan` */
+
+insert  into `pertemuan`(`id_pertemuan`,`id_jadwal`,`pertemuan_ke`,`id_ruangan`,`latitude`,`longitude`,`id_dosen`,`detail_pertemuan`,`tanggal_pertemuan`,`jam_mulai`,`jam_selesai`) values 
+(1,1,1,885234,-7.350745,108.221886,'20253035',NULL,'2018-09-06',NULL,NULL);
 
 /*Table structure for table `ruangan` */
 
