@@ -1,5 +1,20 @@
 <?php
 
+// general function
+if (!function_exists('getDayIndonesia')) {
+    function getDayIndonesia($index) {
+        $days = [
+            'Minggu', 'Senin', 'Selasa',
+            'Rabu', 'Kamis', 'Jum\'at',
+            'Sabtu'
+        ];
+        return array_key_exists($index, $days)
+            ? $days[$index]
+            : "No Day" ;
+    }
+}
+// end general function
+
 // Auth function
 if (!function_exists('checkLogin')) {
 	function checkLogin()
@@ -187,6 +202,53 @@ if (!function_exists('redirectJs')) {
 
 // End Url function
 
+// Route Function
+if (!function_exists('enableRoute')) {
+    function enableRoute($listUrls)
+    {
+        $bts =  debug_backtrace();
+        $actionFind = false;
+        foreach ($bts as $bt) {
+            $dir = @dirname($bt['file']);
+            if ($dir==BASE_DIR) continue;
+            $action = getAction();
+
+            $file = array_key_exists($action, $listUrls)
+                ? $listUrls[$action]
+                : (in_array($action, $listUrls) ? $action : "not-found");
+
+            $fullFile = sprintf(
+                "%s/%s%s",
+                $file=="not-found"?MODULE_DIR:$dir,
+                $file,
+                substr($file, -4) <> ".php" ? ".php" : ""
+            );
+
+            if (file_exists($fullFile)) {
+                $actionFind = true;
+                include $fullFile;
+                break;
+            }
+        }
+        if (!$actionFind) {
+            echo "Aksi tidak ditemukan";
+        }
+
+    }
+}
+if (!function_exists('basicCrud')) {
+    function basicCrud($adder=[], $except = []) {
+        $actionList = array(
+            'index', 'hapus', 'edit',
+            'do_edit', 'input', 'do_input',
+        );
+        $diff = array_diff($actionList, $except);
+        $actionList = array_merge($diff, $adder);
+        enableRoute($actionList);
+    }
+}
+// End Route Function
+
 // Database Function
 
 if (!function_exists('connectDb')) {
@@ -213,7 +275,7 @@ if (!function_exists('_query')) {
 
 if (!function_exists('_fetchMultipleFromSql')) {
 	function _fetchMultipleFromSql($sql, $mode="array") {
-		$functionName = $mode == 'object' ? "mysqli_fetch_object" : "mysqli_fetch_array";
+		$functionName = $mode == 'object' ? "mysqli_fetch_object" : "mysqli_fetch_assoc";
 		$query = _query($sql);
 		$results=[];
 		if (!$query) return false;
@@ -227,7 +289,7 @@ if (!function_exists('_fetchMultipleFromSql')) {
 
 if (!function_exists('_fetchOneFromSql')) {
 	function _fetchOneFromSql($sql, $mode="array") {
-		$functionName = $mode == 'object' ? "mysqli_fetch_object" : "mysqli_fetch_array";
+		$functionName = $mode == 'object' ? "mysqli_fetch_object" : "mysqli_fetch_assoc";
 		$query = _query($sql);
 		$results=[];
 		if (!$query) return false;
@@ -344,9 +406,9 @@ if (!function_exists('includeIfNotAction')) {
 	}
 }
 if (!function_exists('includeIfAction')) {
-	function includeIfAction($file, $actionExcept=[]){
+	function includeIfAction($file, $actions=[]){
 		$action = getAction();
-		if (in_array($action, $actionExcept)) {
+		if (in_array($action, $actions)) {
 			include $file;
 		}
 	}
@@ -363,5 +425,33 @@ if (!function_exists('flashData')) {
 
 // End View Function
 
+// Haversine Formula
+if (!function_exists('haversineGreatCircleDistance')) {
+	/**
+	 * Calculates the great-circle distance between two points, with
+	 * the Haversine formula.
+	 * @param float $latitudeFrom Latitude of start point in [deg decimal]
+	 * @param float $longitudeFrom Longitude of start point in [deg decimal]
+	 * @param float $latitudeTo Latitude of target point in [deg decimal]
+	 * @param float $longitudeTo Longitude of target point in [deg decimal]
+	 * @param float $earthRadius Mean earth radius in [m]
+	 * @return float Distance between points in [m] (same as earthRadius)
+	 */
+	function haversineGreatCircleDistance(
+	  $latitudeFrom, $longitudeFrom, $latitudeTo, $longitudeTo, $earthRadius = 6371000)
+	{
+	  // convert from degrees to radians
+	  $latFrom = deg2rad($latitudeFrom);
+	  $lonFrom = deg2rad($longitudeFrom);
+	  $latTo = deg2rad($latitudeTo);
+	  $lonTo = deg2rad($longitudeTo);
 
+	  $latDelta = $latTo - $latFrom;
+	  $lonDelta = $lonTo - $lonFrom;
 
+	  $angle = 2 * asin(sqrt(pow(sin($latDelta / 2), 2) +
+	    cos($latFrom) * cos($latTo) * pow(sin($lonDelta / 2), 2)));
+	  return $angle * $earthRadius;
+	}
+}
+// End Haversine Formula
