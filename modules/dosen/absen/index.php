@@ -9,7 +9,7 @@
 			<div class="box">
 				<div class="box-body">
 					<?=flash()->display();?>
-					<table class="table table-hover table-bordered datatable">
+					<table class="table table-hover table-bordered datatable" >
 						<thead>
 							<tr>
 								<th colspan="" rowspan="" headers="" scope="">
@@ -47,6 +47,39 @@
 									<td>
 										<?=$jadwal['nama_matakuliah'];?>
 									</td>
+                                    <td>
+                                        <?php
+                                        $onJadwal =
+                                            date('N') == $jadwal['id_hari']
+                                            &&
+                                            $jadwal['jam_mulai'] <= date('H:i:s')
+                                            &&
+                                            date('H:i:s') <= $jadwal['jam_selesai']
+                                        ;
+
+                                        if ($onJadwal) {
+                                            $sudahAbsen = $jadwal['pertemuan_ke'];
+                                        } else {
+                                            $sudahAbsen = false;
+                                        }
+
+                                        if ($onJadwal && $sudahAbsen) {
+                                            ?>
+                                            Pertemuan Ke-<?=$sudahAbsen;?><br>
+                                            <a href="<?=moduleUrl('dosen/absen', 'lihat_pertemuan', 'id_jadwal='.$jadwal['id_jadwal']);?>" title="" class="btn btn-primary btn-sm">Lihat Pertemuan</a>
+                                            <?php
+                                        } else if ($onJadwal) {
+                                            ?>
+                                            <a href="<?=moduleUrl('dosen/absen', 'buat_pertemuan', 'id_jadwal='.$jadwal['id_jadwal']);?>" title="" class="btn btn-primary btn-sm">Buat Pertemuan</a>
+                                            <?php
+                                        } else {
+                                            ?>
+                                            Diluar Jadwal
+                                            <?php
+                                        }
+                                        ?>
+
+                                    </td>
 									<td>
 										<?=strtoupper($jadwal['nama_kelas']);?>
 									</td>
@@ -61,39 +94,7 @@
                                             <?=$jadwal['jam_selesai'];?>
                                         </small>
 									</td>
-									<td>
-                                        <?php
-                                        $onJadwal =
-                                            date('N') == $jadwal['id_hari']
-                                            &&
-                                            $jadwal['jam_mulai'] <= date('H:i:s')
-                                            &&
-                                            date('H:i:s') <= $jadwal['jam_selesai']
-                                        ;
 
-                                        if ($onJadwal) {
-                                        	$sudahAbsen = $jadwal['id_pertemuan'];	
-                                        } else {
-                                        	$sudahAbsen = false;
-                                        }
-
-                                        if ($onJadwal && $sudahAbsen) {
-                                            ?>
-                                            Pertemuan Ke-X<br>
-                                            Lihat Pertemuan
-                                            <?php
-                                        } else if ($onJadwal) {
-                                            ?>
-                                            <a href="<?=moduleUrl('dosen/absen', 'pertemuan');?>" title="" class="btn btn-primary btn-sm">Buat Pertemuan</a>
-                                            <?php
-                                        } else {
-                                            ?>
-                                            Diluar Jadwal
-                                            <?php
-                                        }
-                                        ?>
-
-									</td>
 								</tr>
 								<?php
 							}

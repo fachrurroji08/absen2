@@ -8,6 +8,8 @@
 <link rel="stylesheet" href="<?=baseUrl('style/bower_components/font-awesome/css/font-awesome.min.css');?>">
 <!-- Ionicons -->
 <link rel="stylesheet" href="<?=baseUrl('style/bower_components/Ionicons/css/ionicons.min.css');?>">
+<!-- Bootstrap time Picker -->
+<link rel="stylesheet" href="<?=baseUrl('/style/plugins/timepicker/bootstrap-timepicker.min.css');?>">
 <!-- Theme style -->
 <link rel="stylesheet" href="<?=baseUrl('style/dist/css/AdminLTE.min.css');?>">
 <!-- AdminLTE Skins. We have chosen the skin-blue for this starter

@@ -7,7 +7,7 @@
 	<div class="row">
 		<div class="col-md-12">
 			<div class="box">
-				<div class="box-body">
+				<div class="box-body table-responsive">
 					<?=flash()->display();?>
 					<table class="table table-hover table-bordered datatable">
 						<thead>
@@ -18,6 +18,10 @@
 								<th colspan="" rowspan="" headers="" scope="">
 									Nama Matakuliah
 								</th>
+
+                                <th colspan="" rowspan="" headers="" scope="">
+                                    Absen
+                                </th>
 								<th colspan="" rowspan="" headers="" scope="">
 									Kelas
 								</th>
@@ -29,9 +33,6 @@
                                 </th>
 								<th colspan="" rowspan="" headers="" scope="">
 									Hari/Jam
-								</th>
-								<th colspan="" rowspan="" headers="" scope="">
-									Absen
 								</th>
 							</tr>
 						</thead>
@@ -50,6 +51,48 @@
 									<td>
 										<?=$mahasiswa['nama_matakuliah'];?>
 									</td>
+                                    <td>
+                                        <?php
+                                        $onJadwal =
+                                            date('N') == $mahasiswa['id_hari']
+                                            &&
+                                            $mahasiswa['jam_mulai'] <= date('H:i:s')
+                                            &&
+                                            date('H:i:s') <= $mahasiswa['jam_selesai']
+                                        ;
+
+                                        if ($onJadwal) {
+                                            $query = sprintf(
+                                                "SELECT * from absen where tanggal_absen='%s' and waktu_absen >= '%s' and waktu_absen <= '%s' and npm='%s' ",
+                                                date('Y-m-d'),
+                                                $mahasiswa['jam_mulai'],
+                                                $mahasiswa['jam_selesai'],
+                                                $mahasiswa['npm']
+                                            );
+                                            $sudahAbsen = _fetchOneFromSql($query);
+                                        } else {
+                                            $sudahAbsen = false;
+                                        }
+
+                                        if ($onJadwal && $sudahAbsen) {
+                                            ?>
+                                            <div class="alert alert-success">
+                                                Sudah Absen : <?=$sudahAbsen['status'];?><br/>
+                                                <?=sprintf("%s %s", $sudahAbsen['tanggal_absen'], $sudahAbsen['waktu_absen']);?>
+                                            </div>
+                                            <?php
+                                        } else if ($onJadwal) {
+                                            ?>
+                                            <a href="<?=moduleUrl('mahasiswa/absen', 'startAbsen', 'id_jadwal='.$mahasiswa['id_jadwal']);?>" class="btn btn-primary btn-xs" onclick="openWindow(event, this)">Absen</a>
+                                            <?php
+                                        } else {
+                                            ?>
+                                            Diluar Jadwal
+                                            <?php
+                                        }
+                                        ?>
+
+                                    </td>
 									<td>
 										<?=strtoupper($mahasiswa['nama_kelas']);?>
 									</td>
@@ -67,48 +110,7 @@
                                             <?=$mahasiswa['jam_selesai'];?>
                                         </small>
 									</td>
-									<td>
-                                        <?php
-                                        $onJadwal =
-                                            date('N') == $mahasiswa['id_hari']
-                                            &&
-                                            $mahasiswa['jam_mulai'] <= date('H:i:s')
-                                            &&
-                                            date('H:i:s') <= $mahasiswa['jam_selesai']
-                                        ;
 
-                                        if ($onJadwal) {
-                                        	$query = sprintf(
-                                        		"SELECT * from absen where tanggal_absen='%s' and waktu_absen >= '%s' and waktu_absen <= '%s' and npm='%s' ",
-                                        		date('Y-m-d'),
-                                        		$mahasiswa['jam_mulai'], 
-                                        		$mahasiswa['jam_selesai'],
-                                        		$mahasiswa['npm']
-                                        	);
-                                        	$sudahAbsen = _fetchOneFromSql($query);	
-                                        } else {
-                                        	$sudahAbsen = false;
-                                        }
-
-                                        if ($onJadwal && $sudahAbsen) {
-                                            ?>
-                                            <div class="alert alert-success">
-                                            	Sudah Absen : <?=$sudahAbsen['status'];?><br/>
-                                            <?=sprintf("%s %s", $sudahAbsen['tanggal_absen'], $sudahAbsen['waktu_absen']);?>
-                                            </div>
-                                            <?php
-                                        } else if ($onJadwal) {
-                                            ?>
-                                            <a href="<?=moduleUrl('mahasiswa/absen', 'startAbsen', 'id_jadwal='.$mahasiswa['id_jadwal']);?>" class="btn btn-primary btn-xs" onclick="openWindow(event, this)">Absen</a>
-                                            <?php
-                                        } else {
-                                            ?>
-                                            Diluar Jadwal
-                                            <?php
-                                        }
-                                        ?>
-
-									</td>
 								</tr>
 								<?php
 							}

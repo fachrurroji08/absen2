@@ -92,7 +92,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
       <ul class="sidebar-menu" data-widget="tree">
         <!-- BERANDA -->
       <li><a href="<?=moduleUrl('dashboard');?>"><i class="fa fa-link"></i> <span>Beranda</span></a></li>
-      <li><a href="<?=moduleUrl('mahasiswa/jadwal');?>"><i class="fa fa-link"></i> <span>Jadwal</span></a></li>
+<!--      <li><a href="--><?//=moduleUrl('mahasiswa/jadwal');?><!--"><i class="fa fa-link"></i> <span>Jadwal</span></a></li>-->
       <li><a href="<?=moduleUrl('mahasiswa/absen');?>"><i class="fa fa-link"></i> <span>Absen</span></a></li>
       <!-- /.sidebar-menu -->
     </section>

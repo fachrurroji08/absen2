@@ -1,0 +1,5 @@
+deployment:
+  tasks:
+    - composer install
+    - export DEPLOYPATH=/home/vitaznyc/public_html/absen/
+    - /bin/cp * $DEPLOYPATH

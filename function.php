@@ -455,3 +455,29 @@ if (!function_exists('haversineGreatCircleDistance')) {
 	}
 }
 // End Haversine Formula
+
+// jadwal function
+if (!function_exists('get_last_pertemuan')) {
+    function get_last_pertemuan($id_jadwal) {
+        $query = "SELECT pertemuan_ke from pertemuan WHERE id_jadwal='$id_jadwal' ORDER BY pertemuan_ke desc limit 0, 1";
+        $data = _fetchOneFromSql($query);
+        return $data ? $data['pertemuan_ke'] : 0;
+    }
+}
+
+if (!function_exists('get_jadwal_by_id_jadwal')) {
+    function get_jadwal_by_id_jadwal($id_jadwal) {
+        $query = "SELECT * from view_jadwal WHERE id_jadwal='$id_jadwal'";
+        $data = _fetchOneFromSql($query);
+        return $data;
+    }
+}
+
+if (!function_exists('get_pertemuan_minggu_ini')) {
+    function get_pertemuan_minggu_ini($id_jadwal) {
+        $query = "SELECT * from pertemuan_minggu_ini WHERE id_jadwal='$id_jadwal'";
+        $data = _fetchOneFromSql($query);
+        return $data;
+    }
+}
+// end jadwal function
