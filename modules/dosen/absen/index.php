@@ -50,7 +50,7 @@
                                     <td>
                                         <?php
                                         $onJadwal =
-                                            date('N') == $jadwal['id_hari']
+                                            date('w') == $jadwal['id_hari']
                                             &&
                                             $jadwal['jam_mulai'] <= date('H:i:s')
                                             &&

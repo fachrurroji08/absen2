@@ -54,7 +54,7 @@
                                     <td>
                                         <?php
                                         $onJadwal =
-                                            date('N') == $mahasiswa['id_hari']
+                                            date('w') == $mahasiswa['id_hari']
                                             &&
                                             $mahasiswa['jam_mulai'] <= date('H:i:s')
                                             &&
