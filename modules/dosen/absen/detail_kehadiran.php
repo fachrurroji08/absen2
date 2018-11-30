@@ -33,7 +33,7 @@ if (!isset($id_jadwal) || !$id_jadwal || isset($jadwal) || !$jadwal || isset($pe
     $id_jadwal = @$_GET['id_jadwal'];
     $id_pertemuan = $pertemuan_minggu_ini['id_pertemuan'];
     $mahasiswas = _fetchMultipleFromSql(
-        "	SELECT v.*, m.nama_mahasiswa, a.status, a.waktu_absen, a.tanggal_absen, a.latitude, a.longitude
+        "	SELECT v.*, m.nama_mahasiswa, a.status, a.waktu_absen, a.tanggal_absen, a.latitude, a.longitude, a.user_agent
             from view_krs v
             join mahasiswa m on m.npm=v.npm
             left join absen a on a.npm=m.npm and a.id_pertemuan='$id_pertemuan' 
@@ -70,7 +70,8 @@ if (!isset($id_jadwal) || !$id_jadwal || isset($jadwal) || !$jadwal || isset($pe
                     ), 2, ".", ","),
                         $mahasiswa['latitude'], $mahasiswa['longitude']
                     );
-
+                    echo "<br/>";
+                    echo $mahasiswa['user_agent'];
                 } else {
                     echo "--";
                 }

@@ -39,7 +39,7 @@ try {
 
         $jarak=haversineGreatCircleDistance($latMahasiswa, $lngMahasiswa, $pertemuan['latitude'], $pertemuan['longitude']);
 
-        if ($jarak > 15) {
+        if ($jarak > 10) {
             throw new Exception("Jarak anda terlalu jauh", 1);
             
         }

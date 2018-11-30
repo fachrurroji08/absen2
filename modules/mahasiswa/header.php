@@ -10,9 +10,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
     <?php
     include_once MODULE_DIR."/head_adminlte.php";
     ?>
-    <title>SIM Absen</title>
-
-
+    <title>SIM Kehadiran</title>
 </head>
 
 <body class="hold-transition skin-yellow-light sidebar-mini">
@@ -25,7 +23,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
       <!-- mini logo for sidebar mini 50x50 pixels -->
       <span class="logo-mini"><b>S</b>IM</span>
       <!-- logo for regular state and mobile devices -->
-      <span class="logo-lg"><b>SIM</b> Absen</span>
+      <span class="logo-lg"><b>SIM</b> Kehadiran</span>
     </a>
 
     <!-- Header Navbar -->
@@ -93,7 +91,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
         <!-- BERANDA -->
       <li><a href="<?=moduleUrl('dashboard');?>"><i class="fa fa-link"></i> <span>Beranda</span></a></li>
 <!--      <li><a href="--><?//=moduleUrl('mahasiswa/jadwal');?><!--"><i class="fa fa-link"></i> <span>Jadwal</span></a></li>-->
-      <li><a href="<?=moduleUrl('mahasiswa/absen');?>"><i class="fa fa-link"></i> <span>Absen</span></a></li>
+      <li><a href="<?=moduleUrl('mahasiswa/absen');?>"><i class="fa fa-link"></i> <span>Kehadiran</span></a></li>
       <!-- /.sidebar-menu -->
     </section>
     <!-- /.sidebar -->

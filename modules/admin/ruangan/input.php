@@ -18,9 +18,22 @@
 
 						<div class="form-group">
 		                  <label>Kapasitas</label>
-		                  <input type="text" class="form-control" placeholder="Kapasitas" value="<?=flashData('kapasitas');?>" name="kapasitas" required="required">
+		                  <input type="text" class="form-control" placeholder="Kapasitas" value="<?=flashData('kapasitas');?>" name="kapasitas" required="required">		            
 		                </div>
-                		
+		                
+                		<div class="form-group">
+		                  <label>Lokasi</label>
+		                  <div class="input-group">
+                              <input type="text" class="form-control latitude" placeholder="Latitude" value="" name="" readonly="readonly">
+                              <input type="hidden" class="latitude" name="latitude">
+                              <span class="input-group-btn" style="width:0px;"></span>
+                              <input type="text" class="form-control longitude" placeholder="Longitude" value="" name="" readonly="readonly">
+                              <input type="hidden" class="longitude" name="longitude">
+                              <span class="input-group-btn">
+                                  <button type="button" class="btn btn-primary aktifkan_lokasi"><i class="fa fa-location-arrow"></i> Aktifkan</button>
+                              </span>
+                          </div>
+		                </div>
                 		<button type="submit" class="btn btn-primary">Tambah</button>
              		 </form>
 				</div>

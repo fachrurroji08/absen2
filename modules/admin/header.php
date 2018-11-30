@@ -10,7 +10,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
     <?php
     include_once MODULE_DIR."/head_adminlte.php";
     ?>
-  <title>SIM Absen</title>
+  <title>SIM Kehadiran</title>
 </head>
 
 <body class="hold-transition skin-green sidebar-mini">
@@ -23,7 +23,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
       <!-- mini logo for sidebar mini 50x50 pixels -->
       <span class="logo-mini"><b>S</b>IM</span>
       <!-- logo for regular state and mobile devices -->
-      <span class="logo-lg"><b>SIM</b> Absen</span>
+      <span class="logo-lg"><b>SIM</b> Kehadiran</span>
     </a>
 
     <!-- Header Navbar -->
@@ -143,12 +143,17 @@ scratch. This page gets rid of all links and provides the needed markup only.
           </ul>
         </li>
 
-        	<li>
-        		         <a href="<?=moduleUrl('admin/matakuliah');?>"><i class="fa fa-link"></i> <span>Matakuliah</span>
+        	<li class="treeview">
+          <a href="#"><i class="fa fa-link"></i> <span>Matakuliah</span>
             <span class="pull-right-container">
+                <i class="fa fa-angle-left pull-right"></i>
               </span>
           </a>
-        	</li>
+          <ul class="treeview-menu">
+            <li><a href="<?=moduleUrl('admin/matakuliah');?>">Data Matakuliah</a></li>
+            <li><a href="<?=moduleUrl('admin/matakuliah','input');?>">Tambah Matakuliah</a></li>
+          </ul>
+        </li>
 
       </ul>
 

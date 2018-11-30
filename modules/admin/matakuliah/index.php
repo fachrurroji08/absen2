@@ -1,5 +1,5 @@
 <section class="content-header">
-	<h2>Data Mahasiswa</h2>
+	<h2>Data Matakuliah</h2>
 </section>
 
 <!-- Main content -->
@@ -16,16 +16,10 @@
 									No
 								</th>
 								<th colspan="" rowspan="" headers="" scope="">
-									Nama Ruangan
+									Kode Matakuliah
 								</th>
 								<th colspan="" rowspan="" headers="" scope="">
-									Kapasitas
-							</th>
-								<th colspan="" rowspan="" headers="" scope="">
-									Latitude
-								</th>
-								<th colspan="" rowspan="" headers="" scope="">
-									Longitude
+									Nama Matakuliah
 								</th>
 								<th colspan="" rowspan="" headers="" scope="">
 									Opsi
@@ -34,9 +28,9 @@
 						</thead>
 						<tbody>
 							<?php
-							$datas = _fetchMultipleFromSql("SELECT * from ruangan");
+							$datas = _fetchMultipleFromSql("SELECT * from matakuliah");
 							$no=0;
-							foreach ($datas as $key => $ruangan) {
+							foreach ($datas as $key => $matakuliah) {
 								++$no;
 								?>
 								<tr>
@@ -44,14 +38,14 @@
 										<?=$no;?>
 									</td>
 									<td>
-										<?=$ruangan['nama_ruangan'];?>
+										<?=$matakuliah['kode_matakuliah'];?>
 									</td>
 									<td>
-										<?=$ruangan['kapasitas'];?>
+										<?=$matakuliah['nama_matakuliah'];?>
 									</td>
 									<td>
-										<a href="<?=moduleUrl('admin/ruangan', 'edit', 'id='.$ruangan['id_ruangan']);?>" title="Edit" class="btn btn-primary btn-xs"><i class="fa fa-pencil"></i></a>
-										<a href="<?=moduleUrl('admin/ruangan', 'hapus', 'id='.$ruangan['id_ruangan']);?>" title="Hapus" class="btn btn-danger btn-xs" onclick="needConfirm(event, this);"><i class="fa fa-trash"></i></a>
+										<a href="<?=moduleUrl('admin/matakuliah', 'edit', 'id='.$matakuliah['kode_matakuliah']);?>" title="Edit" class="btn btn-primary btn-xs"><i class="fa fa-pencil"></i></a>
+										<a href="<?=moduleUrl('admin/matakuliah', 'hapus', 'id='.$matakuliah['kode_matakuliah']);?>" title="Hapus" class="btn btn-danger btn-xs" onclick="needConfirm(event, this);"><i class="fa fa-trash"></i></a>
 									</td>
 								</tr>
 								<?php

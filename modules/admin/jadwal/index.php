@@ -1,5 +1,5 @@
 <section class="content-header">
-	<h2>Data Mahasiswa</h2>
+
 </section>
 
 <!-- Main content -->
@@ -8,7 +8,6 @@
 		<div class="col-md-12">
 			<div class="box">
 				<div class="box-body">
-					<?=flash()->display();?>
 					<table class="table table-hover table-bordered datatable">
 						<thead>
 							<tr>
@@ -16,16 +15,16 @@
 									No
 								</th>
 								<th colspan="" rowspan="" headers="" scope="">
-									Nama Ruangan
+									ID Dosen
 								</th>
 								<th colspan="" rowspan="" headers="" scope="">
-									Kapasitas
-							</th>
-								<th colspan="" rowspan="" headers="" scope="">
-									Latitude
+									NIDN
 								</th>
 								<th colspan="" rowspan="" headers="" scope="">
-									Longitude
+									Jenis Kelamin
+								</th>
+								<th colspan="" rowspan="" headers="" scope="">
+									Nama
 								</th>
 								<th colspan="" rowspan="" headers="" scope="">
 									Opsi
@@ -34,9 +33,9 @@
 						</thead>
 						<tbody>
 							<?php
-							$datas = _fetchMultipleFromSql("SELECT * from ruangan");
+							$datas = _fetchMultipleFromSql("SELECT * from dosen");
 							$no=0;
-							foreach ($datas as $key => $ruangan) {
+							foreach ($datas as $key => $dosen) {
 								++$no;
 								?>
 								<tr>
@@ -44,14 +43,20 @@
 										<?=$no;?>
 									</td>
 									<td>
-										<?=$ruangan['nama_ruangan'];?>
+										<?=$dosen['id_dosen'];?>
 									</td>
 									<td>
-										<?=$ruangan['kapasitas'];?>
+										<?=$dosen['nidn'];?>
 									</td>
 									<td>
-										<a href="<?=moduleUrl('admin/ruangan', 'edit', 'id='.$ruangan['id_ruangan']);?>" title="Edit" class="btn btn-primary btn-xs"><i class="fa fa-pencil"></i></a>
-										<a href="<?=moduleUrl('admin/ruangan', 'hapus', 'id='.$ruangan['id_ruangan']);?>" title="Hapus" class="btn btn-danger btn-xs" onclick="needConfirm(event, this);"><i class="fa fa-trash"></i></a>
+										<?=$dosen['jenis_kelamin'];?>
+									</td>
+									<td>
+										<?=$dosen['gelar_depan']." ".$dosen['nama_dosen']." ".$dosen['gelar_belakang'];?>
+									</td>
+									<td>
+										<a href="<?=moduleUrl('admin/dosen', 'edit', 'id='.$dosen['id_dosen']);?>" title="Edit" class="btn btn-primary btn-xs"><i class="fa fa-pencil"></i></a>
+										<a href="<?=moduleUrl('admin/dosen', 'hapus', 'id='.$dosen['id_dosen']);?>" title="Hapus" class="btn btn-danger btn-xs" onclick="needConfirm(event, this);"><i class="fa fa-trash"></i></a>
 									</td>
 								</tr>
 								<?php

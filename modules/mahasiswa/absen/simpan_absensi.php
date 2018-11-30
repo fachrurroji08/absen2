@@ -4,6 +4,7 @@ $lngMahasiswa = @$_POST['lngMahasiswa'];
 $dataPertemuan = @$_POST['dataPertemuan'];
 $id_jadwal = @$_POST['id_jadwal'];
 $id_pertemuan = @$_POST['id_pertemuan'];
+$user_agent = @$_SERVER['HTTP_USER_AGENT'];
 $user = getProfile();
 $npm = $user['npm'];
 try {
@@ -39,7 +40,7 @@ try {
 
         $jarak=haversineGreatCircleDistance($latMahasiswa, $lngMahasiswa, $pertemuan['latitude'], $pertemuan['longitude']);
 
-        if ($jarak > 15) {
+        if ($jarak > 10) {
             throw new Exception("Jarak anda terlalu jauh", 1);
             
         }
@@ -52,7 +53,8 @@ try {
             'tanggal_absen' => date('Y-m-d'),
             'latitude' => $latMahasiswa,
             'longitude' => $lngMahasiswa,
-            'npm' => $npm
+            'npm' => $npm,
+            'user_agent' => $user_agent
         );
         _insertData('absen', $data);
 

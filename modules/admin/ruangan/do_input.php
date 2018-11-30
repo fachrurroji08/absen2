@@ -10,8 +10,13 @@ try {
 
 	$kapasitas = antiInjection(@$_POST['kapasitas']);
 	if (!$kapasitas) throw new Exception("Kapasitas harus diisi.", 1);
+
+	 $latitude = antiInjection(@$_POST['latitude']);
+    $longitude = antiInjection(@$_POST['longitude']);
+
+    if (!$latitude || !$longitude) throw new Exception("Lokasi harus diaktifkan terlebih dahulu");
 	
-	$data = compact('nama_ruangan','kapasitas');
+	$data = compact('nama_ruangan','latitude','longitude','kapasitas');
 
 	$status = _insertData('ruangan', $data);
 	if (!$status) {
