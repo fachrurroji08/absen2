@@ -13,7 +13,7 @@ try {
         $jadwal = _fetchOneFromSql(
                 sprintf(
                         " select * from jadwal where id_jadwal='%s' and jam_mulai <= '%s' and '%s' <= jam_selesai and id_hari='%s'  ",
-                    $id_jadwal, date('H:i:s'), date('H:i:s'), date('N')
+                    $id_jadwal, date('H:i:s'), date('H:i:s'), date('w')
                 )
         );
         if (!$jadwal) throw new Exception("Jadwal tidak ditemukan");
@@ -38,11 +38,18 @@ try {
         );
         if ($absen) throw new Exception("Anda sudah pernah melakukan absen dengan status kehadiran ".$absen['status']);
 
-        $jarak=haversineGreatCircleDistance($latMahasiswa, $lngMahasiswa, $pertemuan['latitude'], $pertemuan['longitude']);
+        $ruangan = _fetchOneFromSql(
+            sprintf(
+                " select * from ruangan where id_ruangan='%s' ",
+                $pertemuan['id_ruangan']
+            )
+        );
+        if (!$ruangan) throw new Exception("Ruangan tidak ditemukan.", 1);
+
+        $jarak=haversineGreatCircleDistance($latMahasiswa, $lngMahasiswa, $ruangan['latitude'], $ruangan['longitude']);
 
         if ($jarak > 10) {
             throw new Exception("Jarak anda terlalu jauh", 1);
-            
         }
 
         $status_hadir = 'hadir';

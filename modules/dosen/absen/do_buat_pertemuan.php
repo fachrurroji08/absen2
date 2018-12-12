@@ -30,7 +30,7 @@ try {
     if (!$latitude || !$longitude) throw new Exception("Lokasi harus diaktifkan terlebih dahulu");
 
 
-    $id_ruangan = $jadwal['id_ruangan'];
+    $id_ruangan = @$_POST['id_ruangan'];
     $id_dosen = getProfile()['id_dosen'];
 
     _insertData('pertemuan', compact(

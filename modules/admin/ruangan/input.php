@@ -28,11 +28,9 @@
                 		<div class="form-group">
 		                  <label>Lokasi</label>
 		                  <div class="input-group">
-                              <input type="text" class="form-control latitude" id="latitude" placeholder="Latitude" value="" name="latitude" readonly="readonly">
-                              <input type="hidden" class="latitude" name="latitude">
+                              <input type="text" class="form-control latitude" id="latitude" placeholder="Latitude" value="" name="latitude" readonly="readonly">                              
                               <span class="input-group-btn" style="width:0px;"></span>
-                              <input type="text" class="form-control longitude" id="longitude" placeholder="Longitude" value="" name="longitude" readonly="readonly">
-                              <input type="hidden" class="longitude" name="longitude">
+                              <input type="text" class="form-control longitude" id="longitude" placeholder="Longitude" value="" name="longitude" readonly="readonly">                           
                               <span class="input-group-btn">
                                   <button type="button" class="btn btn-primary aktifkan_lokasi" onclick="aktifkanLokasi(event, this)"><i class="fa fa-location-arrow"></i> Aktifkan</button>
                               </span>

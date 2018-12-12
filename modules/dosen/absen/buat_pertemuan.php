@@ -44,7 +44,18 @@ $jadwal = get_jadwal_by_id_jadwal($id_jadwal);
 
 		                <div class="form-group">
 		                  <label>Ruangan</label>
-		                  <input type="text" class="form-control" placeholder="Nama Ruangan" value="<?=$jadwal['nama_ruangan'];?>" name="nama_ruangan" required="required" readonly="readonly">
+		                  <select name="id_ruangan" class="form-control" onchange="changeLatitudeLongitude(event, this);">
+		                  	<option value='' selected="selected">--Pilih Desa--</option>
+	                   		<?php
+	                   		$datas = _fetchMultipleFromSql ("SELECT * FROM ruangan");
+
+	                   		foreach ($datas as $data) {
+	                   			$id = $data['id_ruangan'];
+	                   			$value = $data['nama_ruangan'];
+	                   			echo "<option value='$id'>$value</option>";
+	                   		}
+	                   		?>
+                			</select>
 		                </div>
 
 		                <div class="form-group">
@@ -78,14 +89,9 @@ $jadwal = get_jadwal_by_id_jadwal($id_jadwal);
 		                <div class="form-group">
 		                  <label>Lokasi</label>
 		                  <div class="input-group">
-                              <input type="text" class="form-control latitude" placeholder="Latitude" value="" name="" readonly="readonly">
-                              <input type="hidden" class="latitude" name="latitude">
+                              <input type="text" class="form-control latitude" placeholder="Latitude" value="" name="latitude" readonly="readonly">
                               <span class="input-group-btn" style="width:0px;"></span>
-                              <input type="text" class="form-control longitude" placeholder="Longitude" value="" name="" readonly="readonly">
-                              <input type="hidden" class="longitude" name="longitude">
-                              <span class="input-group-btn">
-                                  <button type="button" class="btn btn-primary aktifkan_lokasi"><i class="fa fa-location-arrow"></i> Aktifkan</button>
-                              </span>
+                              <input type="text" class="form-control longitude" placeholder="Longitude" value="" name="longitude" readonly="readonly">
                           </div>
 		                </div>
 
@@ -163,5 +169,21 @@ $jadwal = get_jadwal_by_id_jadwal($id_jadwal);
             alert("Geolokasi tidak didukung");
         }
     })
+    function changeLatitudeLongitude(event, el) {
+    	event.preventDefault();
+    	var value = $(el).find('option:selected').val();
+    	$.ajax({
+    		type:'POST',
+    		url:'<?=moduleUrl("dosen/absen", 'getLocation');?>',
+    		data:{id_ruangan:value},
+    		success:function (a, b) {
+    			var data = a.data;
+    			if (data) {
+    				$(".latitude").val(data.latitude);
+    				$(".longitude").val(data.longitude);
+    			}
+    		}
+    	})
+    }
 </script>
 <?php bufferEnd('scripts'); ?>

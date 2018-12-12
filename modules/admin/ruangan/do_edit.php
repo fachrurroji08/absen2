@@ -17,8 +17,9 @@ try {
 	if (!$existsIdRuangan) {
 		 throw new Exception("ID belum ada di database.", 1);
 	}
-
-	$data = compact('nama_ruangan','kapasitas');
+// if (!$latitude || !$longitude) throw new Exception("Lokasi harus diaktifkan terlebih dahulu");
+	
+	$data = compact('nama_ruangan','latitude','longitude','kapasitas');
 
 	$status = _updateData('ruangan', $data, "id_ruangan='$id_ruangan'");
 	if (!$status) {

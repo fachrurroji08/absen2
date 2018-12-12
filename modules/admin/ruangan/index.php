@@ -1,4 +1,4 @@
-<section class="content-header">
+  <section class="content-header">
 	<h2>Data Mahasiswa</h2>
 </section>
 
@@ -48,6 +48,12 @@
 									</td>
 									<td>
 										<?=$ruangan['kapasitas'];?>
+									</td>
+									<td>
+										<?=$ruangan['latitude'];?>
+									</td>
+									<td>
+										<?=$ruangan['longitude'];?>
 									</td>
 									<td>
 										<a href="<?=moduleUrl('admin/ruangan', 'edit', 'id='.$ruangan['id_ruangan']);?>" title="Edit" class="btn btn-primary btn-xs"><i class="fa fa-pencil"></i></a>

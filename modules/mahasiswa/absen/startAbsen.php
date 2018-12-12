@@ -15,7 +15,7 @@
                 <div class="col-md-12">
                     <i class="fa fa-5x fa-map-marker faa-bounce animated"></i><br>
                     <span id="progress">
-                        Loading Absensi
+                        Loading Kehadiran
                     </span>
                     <span id="progress-titik">
                         .....
