@@ -20,7 +20,7 @@
 								</th>
 
                                 <th colspan="" rowspan="" headers="" scope="">
-                                    Absen
+                                    Submit kehadiran
                                 </th>
 								<th colspan="" rowspan="" headers="" scope="">
 									Kelas
