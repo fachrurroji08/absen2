@@ -1,5 +1,5 @@
 <section class="content-header">
-	<h2>Jadwal Absen</h2>
+	<h2>Jadwal Kehadiran</h2>
 </section>
 
 <!-- Main content -->

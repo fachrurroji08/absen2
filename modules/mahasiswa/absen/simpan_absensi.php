@@ -25,7 +25,7 @@ try {
                 )
         );
 
-        if (!$pertemuan) throw new Exception("Dosen belum melakukan absensi");
+        if (!$pertemuan) throw new Exception("Dosen belum melakukan kehadiran");
         if (
         $pertemuan['jam_selesai'] && date('H:i:s') > $pertemuan['jam_selesai']
         ) throw new Exception("Pertemuan sudah selesai");

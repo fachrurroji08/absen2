@@ -97,7 +97,7 @@
                 dataAbsen = Object.assign(dataAbsen, {position: position});
                 simpanAbsensi();
             }, function (error) {
-                alert("Pengaksesan lokasi tidak diizinkan. Anda tidak bisa melakukan absensi.");
+                alert("Pengaksesan lokasi tidak diizinkan. Anda tidak bisa melakukan Presensi.");
                 redirectBackInSeconds();
             });
         } else {
@@ -118,9 +118,9 @@
             data:{latMahasiswa: latMahasiswa, lngMahasiswa: lngMahasiswa, id_pertemuan: id_pertemuan, id_jadwal: id_jadwal},
             success:function (a,b) {
                 if (a['status']==0) {
-                    setProgress("Absen Gagal");
+                    setProgress("Presensi Gagal");
                 } else {
-                    setProgress("Absen Berhasil");
+                    setProgress("Presensi Berhasil");
                 }
                 alert(a['message']);
                 redirectBackInSeconds();

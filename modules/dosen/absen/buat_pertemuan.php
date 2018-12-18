@@ -45,7 +45,7 @@ $jadwal = get_jadwal_by_id_jadwal($id_jadwal);
 		                <div class="form-group">
 		                  <label>Ruangan</label>
 		                  <select name="id_ruangan" class="form-control" onchange="changeLatitudeLongitude(event, this);">
-		                  	<option value='' selected="selected">--Pilih Desa--</option>
+		                  	<option value='' selected="selected">--Pilih Ruangan--</option>
 	                   		<?php
 	                   		$datas = _fetchMultipleFromSql ("SELECT * FROM ruangan");
 

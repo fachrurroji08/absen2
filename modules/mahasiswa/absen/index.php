@@ -1,5 +1,5 @@
 <section class="content-header">
-	<h2>Jadwal Absen</h2>
+	<h2>Jadwal Kehadiran</h2>
 </section>
 
 <!-- Main content -->
@@ -83,7 +83,7 @@
                                             <?php
                                         } else if ($onJadwal) {
                                             ?>
-                                            <a href="<?=moduleUrl('mahasiswa/absen', 'startAbsen', 'id_jadwal='.$mahasiswa['id_jadwal']);?>" class="btn btn-primary btn-xs" onclick="openWindow(event, this)">Absen</a>
+                                            <a href="<?=moduleUrl('mahasiswa/absen', 'startAbsen', 'id_jadwal='.$mahasiswa['id_jadwal']);?>" class="btn btn-primary btn-xs" onclick="openWindow(event, this)">Submit</a>
                                             <?php
                                         } else {
                                             ?>
